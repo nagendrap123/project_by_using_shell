@@ -26,11 +26,11 @@ for i in $@
 do 
  echo "package to istall: $i"
  dnf list installed $i &>>$LOG_FILE
- if [ $? -eq 0] 
+ if [ $? -eq 0 ] 
  then 
    echo -e "already installed $i .....$G SKIPPING $N"
  else 
-   dnf install $i -y &>>LOG_FILE
+   dnf install $i -y &>>$LOG_FILE
    VALIDATE $? "installation of $i"
  fi 
 done 
