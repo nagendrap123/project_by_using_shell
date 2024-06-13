@@ -1,7 +1,7 @@
 #!/bin/bash
 id=$(echo $UID)
 TIMESTAMP=$(date +%F-%H-%M-%S)
-SCRIPT_NAME=$($0 | cut -d "." -f1)
+SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 if [ $id -ne 0 ] 
 then 
