@@ -1,0 +1,9 @@
+#!/bin/bash
+id=`echo $UID`
+if [ $id -ne 0 ]
+then
+   echo "its not a root user"
+   exit 1
+else
+   echo "he is a root user"
+fi 
