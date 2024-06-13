@@ -25,7 +25,7 @@ VALIDATE () {
 for i in $@
 do 
  echo "package to istall: $i"
- dnf list installed $i &>>LOG_FILE
+ dnf list installed $i &>>$LOG_FILE
  if [ $? -eq 0] 
  then 
    echo -e "already installed $i .....$G SKIPPING $N"
@@ -34,5 +34,5 @@ do
    VALIDATE $? "installation of $i"
  fi 
 done 
- 
+
 
