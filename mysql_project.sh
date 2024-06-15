@@ -21,19 +21,16 @@ VALIDATE () {
     else 
       echo -e "$2 ...installed..$G SUCCESS $N"
     fi  
-}    
+}
 
-for i in $@
-do 
- echo "package to istall: $i"
- dnf list installed $i &>>$LOG_FILE
- if [ $? -eq 0 ] 
- then 
-   echo -e "already installed $i .....$Y SKIPPING $N"
- else 
-   dnf install $i -y &>>$LOG_FILE
-   VALIDATE $? "installation of $i"
- fi 
-done 
+dnf install mysql -y &>>$LOG_FILE
+VALIDATE $? "mysql"
 
+systemctl enable mysqld &>>$LOG_FILE
+VALIDATE $? "enable mysql service"
 
+systemctl start mysqld &>>$LOG_FILE
+VALIDATE $? "start mysql service"
+
+mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+VALIDATE $? "setting up root password"
