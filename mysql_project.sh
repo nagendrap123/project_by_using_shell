@@ -33,5 +33,15 @@ systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "start mysql service"
 systemctl status mysqld &>>$LOG_FILE
 
-mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
-VALIDATE $? "settingup root password"
+#mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+#VALIDATE $? "settingup root password"
+
+#below conditions to check idempotency nature
+mysql -h 172.31.84.86 -uroot -pExpenseApp@1 -e 'show databases'
+if [ $? -eq 0 ]
+then 
+  echo "mysql password setup ..... $Y SKIPPING $N"
+else 
+  mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+  VALIDATE $? "mysql password setup"
+fi    
