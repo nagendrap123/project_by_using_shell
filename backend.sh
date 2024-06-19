@@ -21,4 +21,5 @@ VALIDATE () {
     else 
       echo -e "$2 ...installed..$G SUCCESS $N"
     fi  
+}
 
