@@ -22,4 +22,19 @@ VALIDATE () {
       echo -e "$2 ...installed..$G SUCCESS $N"
     fi  
 }
-
+dnf module disable nodejs -y &>>$LOG_FILE
+VALIDATE $? "disabling the default nodejs"
+dnf module enable nodejs:20 -y &>>$LOG_FILE
+VALIDATE $? "enabling nodejs:20"
+dnf install nodejs -y &>>$LOG_FILE
+VALIDATE $? "install the node"
+id expense 
+if [ $? -ne 0 ]
+then 
+   useradd expense &>>$LOG_FILE
+ else 
+  echo -e "user already created ....$Y SKIPPING $N"
+fi 
+mkdir -p /app
+VALIDATE $? "to create apps directory"
+     
