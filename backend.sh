@@ -38,4 +38,13 @@ then
 fi 
 mkdir -p /app
 VALIDATE $? "to create apps directory"
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOGFILE
+VALIDATE $? "Downloading backend code"
+cd /app
+rm -rf /app/*
+unzip /tmp/backend.zip &>>$LOGFILE
+VALIDATE $? "Extracted backend code"
+
+npm install &>>$LOGFILE
+VALIDATE $? "Installing nodejs dependencies"
      
