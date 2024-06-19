@@ -40,7 +40,7 @@ systemctl status mysqld &>>$LOG_FILE
 mysql -h 172.31.84.86 -uroot -pExpenseApp@1 -e 'show databases'
 if [ $? -eq 0 ]
 then 
-  echo "mysql password setup ..... $Y SKIPPING $N"
+  echo -e "mysql password setup ..... $Y SKIPPING $N"
 else 
   mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
   VALIDATE $? "mysql password setup"
