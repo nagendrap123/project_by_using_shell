@@ -49,7 +49,7 @@ npm install &>>$LOG_FILE
 VALIDATE $? "Installing nodejs dependencies"
 
 #check your repo and path
-cp /home/ec2-user/project_by_using_shell-exp-/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
+cp /home/ec2-user/project_by_using_shell/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
 VALIDATE $? "Copied backend service"
 
 systemctl daemon-reload &>>$LOG_FILE
