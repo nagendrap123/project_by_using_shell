@@ -21,21 +21,4 @@ VALIDATE () {
     else 
       echo -e "$2 ...installed..$G SUCCESS $N"
     fi  
-}
-dnf module disable nodejs -y &>>$LOGFILE
-VALIDATE $? "Disabling default nodejs"
 
-dnf module enable nodejs:20 -y &>>$LOGFILE
-VALIDATE $? "Enabling nodejs:20 version"
-
-dnf install nodejs -y &>>$LOGFILE
-VALIDATE $? "Installing nodejs"
-
-id expense &>>$LOGFILE
-if [ $? -ne 0 ]
-then
-    useradd expense &>>$LOGFILE
-    VALIDATE $? "Creating expense user"
-else
-    echo -e "Expense user already created...$Y SKIPPING $N"
-fi
