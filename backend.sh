@@ -38,13 +38,35 @@ then
 fi 
 mkdir -p /app
 VALIDATE $? "to create apps directory"
-curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOGFILE
-VALIDATE $? "Downloading backend code"
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>LOG_FILE
+VALIDATE $? "to extract the code"
 cd /app
 rm -rf /app/*
-unzip /tmp/backend.zip &>>$LOGFILE
+unzip /tmp/backend.zip &>>$LOG_FILE
 VALIDATE $? "Extracted backend code"
 
-npm install &>>$LOGFILE
+npm install &>>$LOG_FILE
 VALIDATE $? "Installing nodejs dependencies"
-     
+
+#check your repo and path
+cp /home/ec2-user/project_by_using_shell-exp-/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
+VALIDATE $? "Copied backend service"
+
+systemctl daemon-reload &>>$LOG_FILE
+VALIDATE $? "Daemon Reload"
+
+systemctl start backend &>>$LOG_FILE
+VALIDATE $? "Starting backend"
+
+systemctl enable backend &>>$LOG_FILE
+VALIDATE $? "Enabling backend"
+
+dnf install mysql -y &>>$LOG_FILE
+VALIDATE $? "Installing MySQL Client"
+mysql -h 172.31.84.86 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+VALIDATE $? "Schema loading"
+
+systemctl restart backend &>>$LOG_FILE
+VALIDATE $? "Restarting Backend"
+
+
