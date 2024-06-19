@@ -28,10 +28,10 @@ dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE $? "enabling nodejs:20"
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "install the node"
-id expense 
+id expense &>>$LOG_FILE
 if [ $? -ne 0 ]
 then 
-   useradd expense &>>$LOG_FILE
+   useradd expense
    VALIDATE $? "to create the user"
  else 
   echo -e "user already created ....$Y SKIPPING $N"
