@@ -37,7 +37,7 @@ systemctl status mysqld &>>$LOG_FILE
 #VALIDATE $? "settingup root password"
 
 #below conditions to check idempotency nature
-mysql -h 172.31.84.86 -uroot -pExpenseApp@1 -e 'show databases'
+mysql -h 172.31.22.145 -uroot -pExpenseApp@1 -e 'show databases'
 if [ $? -ne 0 ]
 then 
    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
