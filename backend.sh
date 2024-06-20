@@ -66,8 +66,6 @@ dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "Installing MySQL Client"
 systemctl restart mysqld &>>$LOG_FILE
 VALIDATE $? "restarting the mysql"
-telnet 172.31.22.145 3306 &>>$LOG_FILE
-VALIDATE $? "check telnet of mysql"
 mysql -h 172.31.22.145  -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
 VALIDATE $? "Schema loading"
 
